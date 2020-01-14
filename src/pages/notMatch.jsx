@@ -9,7 +9,7 @@ class NotMatch extends React.Component{
             <React.Fragment>
                 <Header />
                 <div id="notfound">
-                    <div class="notfound">
+                    <div class="notfound rounded">
                         <div class="notfound-404">
                             <h1>Oops!</h1>
                             <h2>404 - The Page can't be found</h2>

@@ -80,18 +80,19 @@
     display:inline-block;
     font-weight:700;
     text-decoration:none;
-    color:#fff;
+    color:white;
     text-transform:uppercase;
     padding:13px 23px;
-    background:#D96704;
+    background:black;
     font-size:18px;
     -webkit-transition:.2s all;
     transition:.2s all
 }
 
 .notfound a:hover{
-    color:#D96704;
-    background:#0D0D0D
+    border: 1px solid black;
+    color:black;
+    background:whitesmoke
 }
 
 @media only screen and (max-width:767px){

@@ -18,6 +18,12 @@ class Header extends React.Component{
         this.props.history.push('/category/'+category);
     }
 
+    handleSearch = async () =>{
+        await this.props.setChange('isLoading', true)
+        await this.props.getSearchProduct()
+        this.props.history.replace({pathname: '/search', search: '?q='+this.props.keyword})
+    }
+
     render(){
 
         return(
@@ -49,9 +55,9 @@ class Header extends React.Component{
                                 </Link>
                             </li>
                         </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+                    <form class="form-inline my-2 my-lg-0" onSubmit={e => e.preventDefault()}>
+                        <input name="keyword" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={e => this.props.setInput(e)}/>
+                        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" onClick={() => this.handleSearch()}>Search</button>
                     </form>
                         <ul className="navbar-nav ml-auto mt-lg-0">
                             {localStorage.getItem('isLogin')?
@@ -83,4 +89,4 @@ class Header extends React.Component{
 }
 
 
-export default connect("isLogin,isRegister, image, username", actions)(withRouter(Header))
+export default connect("isLogin,isRegister, image, username, keyword", actions)(withRouter(Header))

@@ -157,12 +157,40 @@ export const actions = store => ({
             }
         )
     },
+    getSearchProduct: async (state,event) => {
+        // binding this
+        const keyword = state.keyword
+        const searchData = {
+            brand_name: keyword
+        };
+        const req = {
+            method: "get",    
+            url: "http://localhost:2604/user/product",
+            headers : {
+                "Content-Type": "application/json"
+            },
+            data : searchData
+        };
+        console.log('request search', req)
+        const self = store;
+        await axios(req)
+            .then(function(response){
+                self.setState({ listAllProduct: response.data, isLoading: false});
+                console.log('output axios search',response.data);
+            })
+            .catch(function(error){
+                self.setState({isLoading: false});
+                console.log(error)
+            }
+        )
+    },
     
     getSpesificProduct: async (state,event) => {
         console.log('masuk spesific')
+        const selectedProduct = state.selectedProduct
         const req = {
             method: "get",    
-            url: "http://localhost:2604/user/product?id="+state.selectedProduct
+            url: "http://localhost:2604/user/product?id="+selectedProduct
         };
         const self = store;
         await axios(req)
