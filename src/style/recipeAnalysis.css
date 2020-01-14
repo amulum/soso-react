@@ -1,0 +1,20 @@
+.input-ing {
+    margin-top: 5%;
+    font-size: 30px;
+    margin-bottom: 5%;
+}
+
+#exampleFormControlTextarea1 {
+    font-size: 20px;
+    margin-bottom: 4%;
+}
+
+.login {
+    font-size: 20px;
+}
+
+@media(max-width: 575px){
+    .brief-box h1{
+        font-size: 35px;
+    }
+}

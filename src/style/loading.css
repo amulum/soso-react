@@ -1,0 +1,25 @@
+.loading-box{
+    height: 89vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-box.mini{
+    height: 150px;
+}
+
+.loading-box i{
+    font-size: 100px;
+    color: #F28705;
+    animation: rotation 3s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+            -webkit-transform: rotate(0deg);
+    }
+    to {
+            -webkit-transform: rotate(-359deg);
+    }
+}
