@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../components/Header'; 
+import Header from '../components/header'; 
+import BannerCarousel from '../components/bannerCarousel'
+import ListProduct from '../components/listProduct'
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "unistore/react";
-import { actions } from "../store/store";
+import { actions, store } from "../store/store";
 import '../style/bootstrap.min.css'
 import '../style/home.css'
-import background from '../images/background.jpg'
-import logo from '../images/logo-orange.svg'
 
 const urlHeadLine = "https://api.edamam.com/search?to=21&app_id=7173ea48&app_key=609f58237cd3b846b334f7b7e3f681b2&q="
 
@@ -31,38 +31,40 @@ class Home extends React.Component {
         console.log(this.props.listRecipe)
     }
 
-    componentWillUnmount = async () => {
-        try {
-            await this.props.setChange('isLoading', true)
-            await this.setState('isSearch', false)
-        }
-        catch (error) {
-            console.log(error)
-        }
+    handleTestApi = async () => {
+        await store.setState({selectedProduct : 2})
+        await this.props.getAllProduct()
+        await this.props.getPopularProduct()
+        await this.props.getSpesificProduct()
+        await this.props.getMyBag()
+
+        console.log('getAllProduct', this.props.listAllProduct)
+        console.log('getPopularProduct', this.props.listPopularProduct)
+        console.log('selected product', this.props.selectedProduct)
+        console.log('detail spesific', this.props.listSpesificProduct)
+        console.log('myBagData', this.props.myBagData)
     }
 
+    componentDidMount = () => {
+        // this.props.getPopularProduct();
+        this.props.getAllProduct();
+    };
+
     render () {
-        // let recipeToShow;
-        // if(this.props.listRecipe!==undefined){
-        //     const listRecipe = this.props.listRecipe;
-        //     console.log(listRecipe)
-        //     recipeToShow = listRecipe.map((item, key)=>{
-        //         return(
-        //             <ListRecipe
-        //             key={key}
-        //             number={key}
-        //             image={item.recipe.image}
-        //             title={item.recipe.label}
-        //             {...this.props}/>
-        //         )
-        //     })
-        // }
         return (
             <React.Fragment>
                 <Header/>
                 <div className="container-fluid">
-                    <div className="row">
-                        
+                    <BannerCarousel />
+                    <div className="row justify-content-center">
+                        <div className="wrapper-product">
+                            <div className="label-product">
+                                <button onClick={this.handleTestApi}>test api</button>
+                            </div>
+                            <div className="list-product">
+                                <ListProduct />
+                            </div>
+                        </div>
                     </div>
                     {this.props.isLoading?
                     <div className="loading-box mini" style={{display:this.state.isSearch? 'flex':'none'}}>
@@ -80,4 +82,4 @@ class Home extends React.Component {
         )
     }
 }
-export default connect('isLoading, data, search, listRecipe',actions)(withRouter(Home));
+export default connect('listAllProduct, listPopularProduct, selectedProduct, listSpesificProduct, myBagData',actions)(withRouter(Home));

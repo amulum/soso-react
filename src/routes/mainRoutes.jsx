@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 
 import Login from '../pages/login'
+import Register from '../pages/register'
 import Profile from '../pages/profile'
 import NotMatch from '../pages/notMatch'
 import Home from '../pages/home'
@@ -16,11 +17,11 @@ const Mainroute = () => {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" component={Home}/>
+                    <Route exact path='/profile' component={Profile} />
                     <Route path='/login' component={Login} />
-                    {/* <Route path='/register' component={Register} /> */}
+                    <Route path='/register' component={Register} />
                     {/* <Route path='/order' component={Order} /> */}
                     {/* <Route path='/mybag' component={} /> */}
-                    {/* <Route path='/profile' component={Profile} /> */}
                     {/* <Route path='/product' component={Articles} /> */}
                     {/* <Route path='/department/product/:product' component={Category} /> */}
                     <Route component={NotMatch} />

@@ -8,10 +8,9 @@ import { actions, store } from "../store/store";
 
 class Header extends React.Component{
     handleLogout = () => {
-        this.props.setChange('auth', false);
-        this.props.history.push('/');
-        alert('You have succesfully logged out!')
-
+        this.props.handleLogoutState();
+        this.props.history.push("/");
+        alert("Thanks for visiting our site, See you next time !")
     }
 
     handleCategory = (category) => {
@@ -55,12 +54,26 @@ class Header extends React.Component{
                         <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
                     </form>
                         <ul className="navbar-nav ml-auto mt-lg-0">
+                            {localStorage.getItem('isLogin')?
+                            <li className="nav-item">
+                                <Link className="nav-link" onClick={this.handleLogout}>Logout</Link>
+                            </li>
+                            :
                             <li className="nav-item">
                                 <Link className="nav-link" to="/login">Login</Link>
                             </li>
+                            }
+                            {localStorage.getItem('isRegister')?
                             <li className="nav-item mr-0">
-                                <Link className="nav-link">Register</Link>
+                                <Link className="nav-link" to="/profile">
+                                    Hi {localStorage.getItem('username')}
+                                </Link>
                             </li>
+                            :
+                            <li className="nav-item mr-0">
+                                <Link className="nav-link" to="/register">Register</Link>
+                            </li>
+                            }
                         </ul>
                     </div>
                 </nav>
@@ -70,4 +83,4 @@ class Header extends React.Component{
 }
 
 
-export default connect("auth, image", actions)(withRouter(Header))
+export default connect("isLogin,isRegister, image, username", actions)(withRouter(Header))
