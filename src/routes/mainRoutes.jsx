@@ -11,25 +11,27 @@ import { Provider } from 'unistore/react';
 import { store } from '../store/store';
 import Product from '../pages/productDetails';
 import MyBag from '../pages/myBag';
+import Checkout from '../pages/checkout';
 
 const Mainroute = () => {
-	return (
-		<Provider store={store}>
-			<BrowserRouter>
-				<Switch>
-					<Route exact path='/' component={Home} />
-					<Route path='/profile' component={Profile} />
-					<Route path='/login' component={Login} />
-					<Route path='/register' component={Register} />
-					<Route path='/product/:product' component={Product} />
-					<Route path='/mybag' component={MyBag} />
-					{/* <Route path='/order' component={Order} /> */}
-					{/* <Route path='/department/product/:product' component={Category} /> */}
-					<Route component={NotMatch} />
-				</Switch>
-			</BrowserRouter>
-		</Provider>
-	);
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/product/:product" component={Product} />
+          <Route path="/mybag" component={MyBag} />
+          <Route path="/checkout" component={Checkout} />
+          {/* <Route path='/order' component={Order} /> */}
+          {/* <Route path='/department/product/:product' component={Category} /> */}
+          <Route component={NotMatch} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  );
 };
 
 export default Mainroute;
