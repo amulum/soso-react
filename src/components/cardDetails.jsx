@@ -7,16 +7,16 @@ import { actions, store } from '../store/store';
 import '../style/cardDetails.css';
 
 class CardDetails extends React.Component {
-	handleBagState = () => {
+	handleBagState = async () => {
 		// jalankan fungsi nembak axios
 		// push ke bag
-		store.setState({ productToBag: this.props.product_id });
+		await store.setState({ productToBag: this.props.product_id });
 		console.log('handlebagstate', this.props.productToBag);
-		store.setState({ amountToBag: 1 });
+		await store.setState({ amountToBag: 1 });
 		console.log('amount to bag', this.props.amountToBag);
 
-		this.props.postProductToBag();
-		this.props.history.push('/mybag');
+		await this.props.postProductToBag();
+		await this.props.history.push('/mybag');
 	};
 
 	handleOrderState = () => {

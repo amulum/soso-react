@@ -100,7 +100,6 @@ export const actions = store => ({
             });
     },
 
-    // get user profile
     getUserProfile: async (state, event) => {
         const req = {
             method: "get",

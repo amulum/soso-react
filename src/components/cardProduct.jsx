@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/bootstrap.min.css';
-import '../style/listProduct.css';
+import '../style/cardProduct.css';
 import logo from '../images/logo192.png';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'unistore/react';
@@ -14,29 +14,37 @@ class CardProduct extends React.Component {
 	};
 	render() {
 		return (
-			<div className='col-md-4 my-3'>
-				<Link onClick={() => this.handleProductDetail()}>
-					<div class='card' style={{ height: '100%' }}>
+			<div className='col-md-3 my-3 border-0 heading2'>
+				<Link
+					onClick={() => this.handleProductDetail()}
+					style={{ textDecoration: 'none' }}>
+					<div class='card p-3 bg-white' style={{ height: '100%' }}>
 						<img src={this.props.image_path} class='card-img-top' />
-						<div class='card-body'>
-							<p class='card-text'>{this.props.name}</p>
-							<small>{this.props.sub_name}</small>
+						<div class='card-body bg-white mb-0'>
+							<p class='card-text heading3' style={{ fontSize: '4vh' }}>
+								{this.props.name}
+							</p>
+							<small className='heading4'>{this.props.sub_name}</small>
 						</div>
-						<div className='card-footer'>
+						<div className='card-footer bg-white border-0'>
 							<div className='wrap-price justify-content-start d-flex flex-row'>
 								<div className='wrap-price-specify d-flex flex-column'>
 									{this.props.discount > 0 ? (
-										<small style={{ textDecoration: 'line-through' }}>
-											{this.props.price}
-										</small>
+										<div
+											className='wrapper-discount d-flex flex-column'
+											style={{ width: '100%' }}>
+											<span className='heading3 mb-1'>
+												{this.props.discount}% OFF
+											</span>
+											<small
+												className='heading4'
+												style={{ textDecoration: 'line-through' }}>
+												{this.props.price}
+											</small>
+										</div>
 									) : null}
-									<span>{this.props.sell_price}</span>
+									<span className='heading3'>{this.props.sell_price}</span>
 								</div>
-								{this.props.discount > 0 ? (
-									<span className='d-flex align-items-end ml-2'>
-										{this.props.discount}
-									</span>
-								) : null}
 							</div>
 						</div>
 					</div>

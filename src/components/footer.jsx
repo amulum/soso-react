@@ -11,33 +11,26 @@ class Footer extends React.Component {
 			<footer class='footer-bs'>
 				<div class='row'>
 					<div class='col-md-3 footer-brand animated fadeInLeft'>
-						<h2>Logo</h2>
-						<p>
-							Suspendisse hendrerit tellus laoreet luctus pharetra. Aliquam
-							porttitor vitae orci nec ultricies. Curabitur vehicula, libero
-							eget faucibus faucibus, purus erat eleifend enim, porta
-							pellentesque ex mi ut sem.
-						</p>
-						<p>© 2014 BS3 UI Kit, All rights reserved</p>
+						<img src={require('../images/logo192.png')} />
 					</div>
 					<div class='col-md-4 footer-nav animated fadeInUp'>
-						<h4>Menu —</h4>
+						<h4>Our Products —</h4>
 						<div class='col-md-6'>
 							<ul class='pages'>
 								<li>
-									<a href='#'>Travel</a>
+									<a href='#'>Skin Care</a>
 								</li>
 								<li>
-									<a href='#'>Nature</a>
+									<a href='#'>Makeup</a>
 								</li>
 								<li>
-									<a href='#'>Explores</a>
+									<a href='#'>Hair Care</a>
 								</li>
 								<li>
-									<a href='#'>Science</a>
+									<a href='#'>Bath and Body</a>
 								</li>
 								<li>
-									<a href='#'>Advice</a>
+									<a href='#'>Accressoris</a>
 								</li>
 							</ul>
 						</div>
@@ -70,9 +63,6 @@ class Footer extends React.Component {
 							<li>
 								<a href='#'>Instagram</a>
 							</li>
-							<li>
-								<a href='#'>RSS</a>
-							</li>
 						</ul>
 					</div>
 					<div class='col-md-3 footer-ns animated fadeInRight'>
@@ -87,7 +77,7 @@ class Footer extends React.Component {
 								/>
 								<span class='input-group-btn'>
 									<button class='btn btn-default' type='button'>
-										<span class='glyphicon glyphicon-envelope'></span>
+										<span class='glyphicon glyphicon-envelope'>S</span>
 									</button>
 								</span>
 							</div>

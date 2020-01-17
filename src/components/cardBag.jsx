@@ -8,24 +8,63 @@ class CardBag extends React.Component {
 	render() {
 		return (
 			// card panjang ada image name qty tombol + minus sub total
-			<div className='col-md-4'>
-				<img src={this.props.image_path} width='200 vh' />
-				<p>brand name : {this.props.name}</p>
-				<p>sub_name : {this.props.sub_name}</p>
-				<p>price : {this.props.price}</p>
-				<p>sell_price : {this.props.sell_price}</p>
-				<p>qty : {this.props.qty_item}</p>
-				<button
-					className='btn btn-dark'
-					onClick={() => this.props.onClick(this.props.id, 1)}>
-					Tambah 1
-				</button>
-				<button
-					className='btn btn-dark'
-					onClick={() => this.props.onClick(this.props.id, -1)}>
-					Kurang 1
-				</button>
-			</div>
+			<tr>
+				<td class='col-sm-8 col-md-6'>
+					<div class='media'>
+						<a class='thumbnail pull-left' href='#'>
+							<img
+								class='media-object'
+								src={this.props.image_path}
+								style={{ width: '72px', height: '72px' }}
+							/>
+						</a>
+						<div class='media-body'>
+							<h4 class='media-heading'>{this.props.name}</h4>
+							<h5 class='media-heading'>{this.props.sub_name}</h5>
+						</div>
+					</div>
+				</td>
+				<td class='col-sm-2 col-md-2'>
+					<div className='row'>
+						<input
+							type='email'
+							class='form-control text-center'
+							id='exampleInputEmail1'
+							value={this.props.qty_item}
+						/>
+					</div>
+					<div className='row d-flex justify-content-between'>
+						<button
+							type='button'
+							class='btn btn-outline-dark'
+							onClick={() => this.props.onClick(this.props.id, -1)}>
+							<span class='glyphicon glyphicon-remove'></span> -
+						</button>
+						<button
+							type='button'
+							class='btn btn-outline-dark'
+							onClick={() => this.props.onClick(this.props.id, 1)}>
+							<span class='glyphicon glyphicon-remove'></span> +
+						</button>
+					</div>
+				</td>
+				<td class='col-sm-1 col-md-1 text-center'>
+					<strong>{this.props.sell_price}</strong>
+				</td>
+				<td class='col-sm-1 col-md-1 text-center'>
+					<strong>{this.props.sell_price * this.props.qty_item}</strong>
+				</td>
+				<td class='col-sm-1 col-md-1'>
+					<button
+						type='button'
+						class='btn btn-dark'
+						onClick={() =>
+							this.props.onClick(this.props.id, -this.props.qty_item)
+						}>
+						<span class='glyphicon glyphicon-remove'></span> #
+					</button>
+				</td>
+			</tr>
 		);
 	}
 }

@@ -78,15 +78,14 @@ class Home extends React.Component {
 		return (
 			<React.Fragment>
 				<Header />
-				<div className='container-fluid'>
+				<div className='container-fluid mx-0 px-0'>
 					<BannerCarousel />
-					<div className='row justify-content-center'>
-						<div className='wrapper-product'>
-							<div className='label-product'>
-								<button onClick={this.handleTestApi}>test api</button>
-							</div>
-						</div>
-						<div className='row d-flex flex-row'>{allProduct}</div>
+					<div className='row justify-content-center bg-light pt-2 p-5'>
+						<h2 className='label-product pt-4'>
+							<span className='heading1 bg-light px-5'>Products</span>
+							{/* <button onClick={this.handleTestApi}>test api</button> */}
+						</h2>
+						<div className='row d-flex flex-row px-5'>{allProduct}</div>
 						<div className='list-product'></div>
 						<div className='list-product'></div>
 					</div>
