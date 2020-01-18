@@ -20,7 +20,10 @@ const initialState = {
   detailsMyBag: [],
   listAddress: [],
   selectedAddress: [],
-  addressName: ''
+  addressName: '',
+  paymentMethod: '',
+  orderDetails: {},
+  paymentDetails: {}
 };
 
 export const store = createStore(initialState);
@@ -378,6 +381,67 @@ export const actions = store => ({
           isLoading: false
         });
         console.log('error getShipAddress', error);
+      });
+  },
+  postOrder: async (state, addressName) => {
+    const myData = {
+      name: addressName
+    }
+    const req = {
+      method: 'post',
+      url: 'http://localhost:2604/user/order',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      data: myData
+    };
+    console.log('request postOrder', req);
+    const self = store;
+    const res = await axios(req)
+      .then(response => {
+        self.setState({
+          orderDetails: response.data,
+          isLoading: false
+        });
+        console.log('output axios postOrder', response.data);
+        return response;
+      })
+      .catch(error => {
+        self.setState({
+          isLoading: false
+        });
+        console.log('error postOrder', error);
+      });
+  },
+  postPayment: async (state, orderID, paymentMethod) => {
+    const myData = {
+      payment_oid: orderID,
+      payment_type: paymentMethod
+    }
+    const req = {
+      method: 'post',
+      url: 'http://localhost:2604/user/payment',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      data: myData
+    };
+    console.log('request postPayment', req);
+    const self = store;
+    const res = await axios(req)
+      .then(response => {
+        self.setState({
+          paymentDetails: response.data,
+          isLoading: false
+        });
+        console.log('output axios postPayment', response.data);
+        return response;
+      })
+      .catch(error => {
+        self.setState({
+          isLoading: false
+        });
+        console.log('error postPayment', error);
       });
   },
   // end here
