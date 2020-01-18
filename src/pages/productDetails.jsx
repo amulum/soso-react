@@ -38,7 +38,11 @@ class Product extends React.Component {
       <React.Fragment>
         <Header />
         <BannerCarousel />
-        <div className="row d-flex flex-row">{allProduct}</div>
+        <div className="container-fluid">
+          <div className="row d-flex justify-content-center">
+            <div className="col-md-11 col-sm-12">{allProduct}</div>
+          </div>
+        </div>
       </React.Fragment>
     );
   }

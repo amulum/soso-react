@@ -7,9 +7,7 @@ class OptionAddress extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <option name="addressName" value={this.props.address_name}>
-          {this.props.address_name}
-        </option>
+        <option value={this.props.optionName}>{this.props.optionName}</option>
       </React.Fragment>
     );
   }
