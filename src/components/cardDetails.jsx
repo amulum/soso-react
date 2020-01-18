@@ -30,84 +30,85 @@ class CardDetails extends React.Component {
   };
   render() {
     return (
-      <div class="container-fluid">
-        <div class="card">
-          <div class="container-fliud">
-            <div class="wrapper row">
-              <div class="preview col-md-6">
-                <div class="preview-pic tab-content">
-                  <div class="tab-pane active" id="pic-1">
-                    <img src={this.props.image_path} />
-                  </div>
-                  <div class="tab-pane" id="pic-2">
-                    <img src={this.props.image_path} />
-                  </div>
-                  <div class="tab-pane" id="pic-3">
-                    <img src={this.props.image_path} />
-                  </div>
-                  <div class="tab-pane" id="pic-4">
-                    <img src={this.props.image_path} />
-                  </div>
-                  <div class="tab-pane" id="pic-5">
-                    <img src={this.props.image_path} />
-                  </div>
+      <div class="card">
+        <div class="container-fliud">
+          <div class="wrapper row">
+            <div class="preview col-md-6">
+              <div class="preview-pic tab-content">
+                <div class="tab-pane active" id="pic-1">
+                  <img src={this.props.image_path} />
                 </div>
-                <ul class="preview-thumbnail nav nav-tabs">
-                  <li class="active">
-                    <a data-target="#pic-1" data-toggle="tab">
-                      <img src={this.props.image_path} />
-                    </a>
-                  </li>
-                  <li>
-                    <a data-target="#pic-2" data-toggle="tab">
-                      <img src={this.props.image_path} />
-                    </a>
-                  </li>
-                  <li>
-                    <a data-target="#pic-3" data-toggle="tab">
-                      <img src={this.props.image_path} />
-                    </a>
-                  </li>
-                  <li>
-                    <a data-target="#pic-4" data-toggle="tab">
-                      <img src={this.props.image_path} />
-                    </a>
-                  </li>
-                  <li>
-                    <a data-target="#pic-5" data-toggle="tab">
-                      <img src={this.props.image_path} />
-                    </a>
-                  </li>
-                </ul>
+                <div class="tab-pane" id="pic-2">
+                  <img src={this.props.image_path} />
+                </div>
+                <div class="tab-pane" id="pic-3">
+                  <img src={this.props.image_path} />
+                </div>
+                <div class="tab-pane" id="pic-4">
+                  <img src={this.props.image_path} />
+                </div>
+                <div class="tab-pane" id="pic-5">
+                  <img src={this.props.image_path} />
+                </div>
               </div>
-              <div class="details col-md-6">
-                <h3 class="product-title">{this.props.name}</h3>
-                <p class="product-description">{this.props.sub_name}</p>
-                {this.props.discount !== 0 ? (
-                  <small style={{ textDecoration: 'line-through' }}>{this.props.price}</small>
-                ) : null}
-                <h4 class="price d-block">
-                  <span>{this.props.sell_price}</span>
-                </h4>
-                <p class="vote">
-                  <strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong>
-                </p>
-                <div class="action">
-                  <button
-                    class="add-to-cart btn btn-default"
-                    type="button"
-                    onClick={this.handleBagState}
-                  >
-                    Add to Bag
-                  </button>
-                  <button
-                    class="add-to-cart btn btn-default ml-2"
-                    type="button"
-                    onClick={this.handleOrderState}
-                  >
-                    Buy Now
-                  </button>
-                </div>
+              <ul class="preview-thumbnail nav nav-tabs">
+                <li class="active">
+                  <a data-target="#pic-1" data-toggle="tab">
+                    <img src={this.props.image_path} />
+                  </a>
+                </li>
+                <li>
+                  <a data-target="#pic-2" data-toggle="tab">
+                    <img src={this.props.image_path} />
+                  </a>
+                </li>
+                <li>
+                  <a data-target="#pic-3" data-toggle="tab">
+                    <img src={this.props.image_path} />
+                  </a>
+                </li>
+                <li>
+                  <a data-target="#pic-4" data-toggle="tab">
+                    <img src={this.props.image_path} />
+                  </a>
+                </li>
+                <li>
+                  <a data-target="#pic-5" data-toggle="tab">
+                    <img src={this.props.image_path} />
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="details col-md-6">
+              <h3 class="product-title">{this.props.name}</h3>
+              <p class="product-description">{this.props.sub_name}</p>
+              {this.props.discount !== 0 ? (
+                <small style={{ textDecoration: 'line-through' }}>
+                  {this.props.price}
+                </small>
+              ) : null}
+              <h4 class="price d-block">
+                <span>{this.props.sell_price}</span>
+              </h4>
+              <p class="vote">
+                <strong>91%</strong> of buyers enjoyed this product!{' '}
+                <strong>(87 votes)</strong>
+              </p>
+              <div class="action">
+                <button
+                  class="add-to-cart btn btn-default"
+                  type="button"
+                  onClick={this.handleBagState}
+                >
+                  Add to Bag
+                </button>
+                <button
+                  class="add-to-cart btn btn-default ml-2"
+                  type="button"
+                  onClick={this.handleOrderState}
+                >
+                  Buy Now
+                </button>
               </div>
             </div>
           </div>

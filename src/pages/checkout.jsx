@@ -14,7 +14,11 @@ class Checkout extends React.Component {
   state = {
     addressDetails: [],
     selectedAddress: [],
-    bagDetails: []
+    bagDetails: [],
+    orderDetails: [],
+    addressName: '',
+    paymentMethod: '',
+    orderID: ''
   };
 
   componentDidMount = async () => {
@@ -35,16 +39,37 @@ class Checkout extends React.Component {
     await this.setState({ selectedAddress: this.props.listAddress });
   };
 
-  handleCheckout = () => {};
+  handlePayment = async paymentMethod => {
+    await this.props.setInput(paymentMethod);
+    await console.log('otw masuk axios', this.props.paymentMethod);
+  };
+
+  handleCheckout = async () => {
+    // api order butuh address name
+    await this.setState({ addressName: this.props.addressName });
+
+    await this.setState({ paymentMethod: this.props.paymentMethod });
+
+    await this.props.postOrder(this.state.addressName);
+    await console.log('address local', this.props.orderDetails);
+
+    await this.setState({ orderDetails: this.props.orderDetails });
+    // api payment butuh order id
+    await this.props.postPayment(this.state.orderDetails.id, this.state.paymentMethod);
+  };
+
   render() {
     // component mybag lagi beda tampilan dan quantitynya udah fix
-
+    const paymentOption = ['ovo', 'dana', 'bank transfer'];
+    const loopPayment = paymentOption.map((item, key) => {
+      return <OptionAddress key={key} optionName={item} />;
+    });
     // component shipping
     const loopOption = this.state.addressDetails.map((item, key) => {
       console.log(`addreess ${key}`, item);
       return (
         // <div></div>
-        <OptionAddress key={key} address_name={item.address_name} item={item} />
+        <OptionAddress key={key} optionName={item.address_name} item={item} />
       );
     });
     return (
@@ -61,6 +86,20 @@ class Checkout extends React.Component {
         <div>
           bagDetails :<p>{JSON.stringify(this.state.bagDetails)}</p>
         </div>
+        <div>
+          inputPaymentMethod :<p>{JSON.stringify(this.props.paymentMethod)}</p>
+        </div>
+        <div>
+          checkInputForCheckout :<p>{JSON.stringify(this.state.addressName)}</p>
+          <p>{JSON.stringify(this.state.paymentMethod)}</p>
+        </div>
+        <div>
+          orderDetails :<p>{JSON.stringify(this.props.orderDetails)}</p>
+          check ID :<p>{JSON.stringify(this.state.orderDetails.id)}</p>
+        </div>
+        <div>
+          paymentDetails :<p>{JSON.stringify(this.props.paymentDetails)}</p>
+        </div>
         <hr />
         <h2>ACTION CHECK</h2>
         <hr />
@@ -68,7 +107,7 @@ class Checkout extends React.Component {
           <div class="form-row align-items-center">
             <div class="col-auto my-1">
               <label class="mr-sm-2" for="inlineFormCustomSelect">
-                Preference
+                Address
               </label>
               <select
                 name="addressName"
@@ -78,6 +117,24 @@ class Checkout extends React.Component {
               >
                 <option selected>Shipping Address</option>
                 {loopOption}
+              </select>
+            </div>
+          </div>
+        </form>
+        <form onSubmit={e => e.preventDefault()}>
+          <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+              <label class="mr-sm-2" for="inlineFormCustomSelect">
+                Payment Method
+              </label>
+              <select
+                name="paymentMethod"
+                class="custom-select mr-sm-2"
+                id="inlineFormCustomSelect"
+                onChange={paymentMethod => this.handlePayment(paymentMethod)}
+              >
+                <option selected>Shipping Address</option>
+                {loopPayment}
               </select>
             </div>
           </div>
@@ -92,6 +149,6 @@ class Checkout extends React.Component {
 }
 
 export default connect(
-  'listAddress, dataMyBag, detailsMyBag, selectedAddress, addressName',
+  'listAddress, dataMyBag, detailsMyBag, selectedAddress, addressName, paymentMethod, orderDetails, paymentDetails',
   actions
 )(withRouter(Checkout));
