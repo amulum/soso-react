@@ -45,7 +45,7 @@ export const actions = store => ({
     console.warn('loginData', loginData);
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/login',
+      url: 'http://localhost:5000/user/login',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -101,7 +101,7 @@ export const actions = store => ({
     console.warn('cek mydata', mydata);
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/register',
+      url: 'http://localhost:5000/user/register',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -123,7 +123,7 @@ export const actions = store => ({
   getUserProfile: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'http://localhost:2604/user/me',
+      url: 'http://localhost:5000/user/me',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -152,7 +152,7 @@ export const actions = store => ({
   getPopularProduct: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'http://localhost:2604/user/product/popular'
+      url: 'http://localhost:5000/user/product/popular'
     };
 
     const self = store;
@@ -175,7 +175,7 @@ export const actions = store => ({
   getAllProduct: async (state, event) => {
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/product'
+      url: 'http://localhost:5000/user/product'
     };
 
     const self = store;
@@ -203,7 +203,7 @@ export const actions = store => ({
     console.log('mydata product detail', mydata);
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/product',
+      url: 'http://localhost:5000/user/product',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -237,7 +237,7 @@ export const actions = store => ({
     };
     const req = {
       method: 'get',
-      url: 'http://localhost:2604/user/product',
+      url: 'http://localhost:5000/user/product',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -273,7 +273,7 @@ export const actions = store => ({
     console.log('mydata postProduct', mydata);
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/mybag',
+      url: 'http://localhost:5000/user/mybag',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -299,7 +299,7 @@ export const actions = store => ({
   getMyBag: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'http://localhost:2604/user/mybag',
+      url: 'http://localhost:5000/user/mybag',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -329,7 +329,7 @@ export const actions = store => ({
     };
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/mybag',
+      url: 'http://localhost:5000/user/mybag',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -359,7 +359,7 @@ export const actions = store => ({
     }
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/address',
+      url: 'http://localhost:5000/user/address',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -389,7 +389,7 @@ export const actions = store => ({
     }
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/order',
+      url: 'http://localhost:5000/user/order',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -420,7 +420,7 @@ export const actions = store => ({
     }
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/payment',
+      url: 'http://localhost:5000/user/payment',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
