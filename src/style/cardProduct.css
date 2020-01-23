@@ -5,24 +5,25 @@
 font-family: 'Libre Caslon Text', serif;
 font-family: 'Source Sans Pro', sans-serif; */
 .heading1 {
-    font-family: 'Gelasio', serif;
-    font-weight: 500;
-    font-size: 10vh;
-    font-style: italic;
+  font-family: 'Gelasio', serif;
+  font-weight: 500;
+  font-size: 10vh;
+  font-style: italic;
 }
 
 .heading2 {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 500;
-    color: #201e1e;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 500;
+  color: #201e1e;
 }
 
 .heading3 {
-    font-weight: 700;
-    color: #201e1e;
+  font-weight: 700;
+  font-size: 1em;
+  color: #201e1e;
 }
 
 .heading4 {
-    font-weight: 400;
-    color: #201e1e;
+  font-weight: 400;
+  color: #201e1e;
 }

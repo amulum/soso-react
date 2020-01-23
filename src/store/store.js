@@ -23,7 +23,8 @@ const initialState = {
   addressName: '',
   paymentMethod: '',
   orderDetails: {},
-  paymentDetails: {}
+  paymentDetails: {},
+  radioOption: ''
 };
 
 export const store = createStore(initialState);
@@ -45,7 +46,7 @@ export const actions = store => ({
     console.warn('loginData', loginData);
     const req = {
       method: 'post',
-      url: 'http://localhost:5000/user/login',
+      url: 'https://soso-store.site/user/login',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -101,7 +102,7 @@ export const actions = store => ({
     console.warn('cek mydata', mydata);
     const req = {
       method: 'post',
-      url: 'http://localhost:5000/user/register',
+      url: 'https://soso-store.site/user/register',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -123,7 +124,7 @@ export const actions = store => ({
   getUserProfile: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'http://localhost:5000/user/me',
+      url: 'https://soso-store.site/user/me',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -152,7 +153,7 @@ export const actions = store => ({
   getPopularProduct: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'http://localhost:5000/user/product/popular'
+      url: 'https://soso-store.site/user/product/popular'
     };
 
     const self = store;
@@ -175,7 +176,7 @@ export const actions = store => ({
   getAllProduct: async (state, event) => {
     const req = {
       method: 'post',
-      url: 'http://localhost:5000/user/product'
+      url: 'https://soso-store.site/user/product'
     };
 
     const self = store;
@@ -203,7 +204,7 @@ export const actions = store => ({
     console.log('mydata product detail', mydata);
     const req = {
       method: 'post',
-      url: 'http://localhost:5000/user/product',
+      url: 'https://soso-store.site/user/product',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -237,7 +238,7 @@ export const actions = store => ({
     };
     const req = {
       method: 'get',
-      url: 'http://localhost:5000/user/product',
+      url: 'https://soso-store.site/user/product',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -273,7 +274,7 @@ export const actions = store => ({
     console.log('mydata postProduct', mydata);
     const req = {
       method: 'post',
-      url: 'http://localhost:5000/user/mybag',
+      url: 'https://soso-store.site/user/mybag',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -299,7 +300,7 @@ export const actions = store => ({
   getMyBag: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'http://localhost:5000/user/mybag',
+      url: 'https://soso-store.site/user/mybag',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -329,7 +330,7 @@ export const actions = store => ({
     };
     const req = {
       method: 'post',
-      url: 'http://localhost:5000/user/mybag',
+      url: 'https://soso-store.site/user/mybag',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -359,7 +360,7 @@ export const actions = store => ({
     }
     const req = {
       method: 'post',
-      url: 'http://localhost:5000/user/address',
+      url: 'https://soso-store.site/user/address',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -389,7 +390,7 @@ export const actions = store => ({
     }
     const req = {
       method: 'post',
-      url: 'http://localhost:5000/user/order',
+      url: 'https://soso-store.site/user/order',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -420,7 +421,7 @@ export const actions = store => ({
     }
     const req = {
       method: 'post',
-      url: 'http://localhost:5000/user/payment',
+      url: 'https://soso-store.site/user/payment',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
