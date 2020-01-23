@@ -63,6 +63,20 @@ class CarouselProduct extends React.Component
         </div>
       );
     });
+    // const loopComplete = () =>
+    // {
+    //   let numberLoop = Math.ceil(listPassive.length / 5)
+    //   for (let index = 0; index < numberLoop; index++)
+    //   {
+    //     return (
+    //       <div className="item carousel-item">
+    //         <div className="row justify-content-center">
+    //           {loopPassive}
+    //         </div>
+    //       </div>
+    //     )
+    //   }
+    // }
     return (
       <div className="container">
         <div className="row">
@@ -86,7 +100,7 @@ class CarouselProduct extends React.Component
                 </div>
                 <div className="item carousel-item">
                   <div className="row justify-content-center">
-                    {loopActive}
+                    {loopPassive}
                   </div>
                 </div>
               </div>

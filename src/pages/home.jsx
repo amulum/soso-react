@@ -88,13 +88,15 @@ class Home extends React.Component
         <Header />
         <div className="container-fluid mx-0 px-0">
           <BannerCarousel />
-          {/* POPULAR PRODUCT */}
-          <h3 className="label-product pt-4">
-            <span className="heading1 bg-light px-5">Popular Products</span>
-            {/* <button onClick={this.handleTestApi}>test api</button> */}
-          </h3>
-          <CarouselProduct
-            listInputCarousel={this.props.listAllProduct} />
+          <div className="row my-2">
+            {/* POPULAR PRODUCT */}
+            <h3 className="label-product my-2 pt-4">
+              <span className="heading1 bg-light px-5">Popular Products</span>
+              {/* <button onClick={this.handleTestApi}>test api</button> */}
+            </h3>
+            <CarouselProduct
+              listInputCarousel={this.props.listAllProduct} />
+          </div>
           <div className="row justify-content-center bg-white pt-2 p-5">
             <h3 className="label-product pt-4">
               <span className="heading1 bg-white px-5">Products</span>

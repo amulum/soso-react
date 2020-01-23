@@ -5,6 +5,7 @@ import logo from '../images/logo192.png';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import { actions, store } from '../store/store';
+import Swal from 'sweetalert2'
 
 class Header extends React.Component
 {
@@ -98,7 +99,9 @@ class Header extends React.Component
             {localStorage.getItem('isLogin') ? (
               <li className="nav-item">
                 <Link className="nav-link heading2" to="/mybag">
-                  MyBag
+                  <span>
+                    <i class="fa fas fa-shopping-bag fa-2x"></i>
+                  </span>
                 </Link>
               </li>
             ) : null}
