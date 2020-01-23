@@ -4,18 +4,27 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import { actions, store } from '../store/store';
 
-class Profile extends React.Component {
-  componentDidMount = () => {
+// idenya pake .match.params
+// ada 3 path 
+// /me, /me/address, /me/order, /me/payment
+class Profile extends React.Component
+{
+  componentDidMount = () =>
+  {
     this.props.getUserProfile();
   };
 
-  render() {
-    const GenerateProfile = props => {
+  render()
+  {
+    const GenerateProfile = props =>
+    {
       const { username, first_name, last_name, email } = props;
 
-      if (localStorage.getItem('isLogin') === undefined) {
+      if (localStorage.getItem('isLogin') === undefined)
+      {
         return <Redirect to={{ pathname: '/login' }} />;
-      } else {
+      } else
+      {
         return (
           <div className="container-fluid d-flex justify-content-center">
             <div class="card mt-3 px-5" style={{ maxWidth: '100%' }}>

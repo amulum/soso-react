@@ -22,7 +22,7 @@ const Mainroute = () =>
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/profile" component={Profile} />
+          <Route path="/me" component={Profile} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/product/:product" component={Product} />

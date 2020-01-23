@@ -67,15 +67,25 @@ class Header extends React.Component
                 Home
               </Link>
             </li>
-            <li class="nav-item">
-              <Link onClick={this.handleDepartment} className="nav-link heading2">
+            <li class="nav-item dropdown heading2">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Department
-              </Link>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link className="dropdown-item" to="/department/1">Department 1</Link>
+                <Link className="dropdown-item" to="/department/2">Department 2</Link>
+                <Link className="dropdown-item" to="/department/3">Department 3</Link>
+              </div>
             </li>
-            <li class="nav-item">
-              <Link onClick={this.handleCategory} className="nav-link heading2">
+            <li class="nav-item dropdown heading2">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Category
-              </Link>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link className="dropdown-item" to="/category/1">Category 1</Link>
+                <Link className="dropdown-item" to="/category/2">Category 2</Link>
+                <Link className="dropdown-item" to="/category/3">Category 3</Link>
+              </div>
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0" onSubmit={e => e.preventDefault()}>
@@ -120,7 +130,7 @@ class Header extends React.Component
               )}
             {localStorage.getItem('isRegister') ? (
               <li className="nav-item mr-0">
-                <Link className="nav-link heading2" to="/profile">
+                <Link className="nav-link heading2" to="/me">
                   Hi {localStorage.getItem('username')}
                 </Link>
               </li>
@@ -133,7 +143,7 @@ class Header extends React.Component
               )}
           </ul>
         </div>
-      </nav>
+      </nav >
     );
   }
 }
