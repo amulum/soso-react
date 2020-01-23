@@ -10,12 +10,17 @@ import { actions, store } from '../store/store';
 import '../style/bootstrap.min.css';
 import '../style/home.css';
 
-class Search extends React.Component {
-  componentDidMount = async () => {
+class Search extends React.Component
+{
+
+  componentDidMount = async () =>
+  {
     await this.props.getProductDetail();
   };
-  render() {
-    const selectProduct = this.props.listSelectProduct.map((item, key) => {
+  render()
+  {
+    const selectProduct = this.props.listSelectProduct.map((item, key) =>
+    {
       return (
         <CardProduct
           image_path={item.Details.image_path}
