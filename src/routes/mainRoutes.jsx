@@ -12,8 +12,11 @@ import { store } from '../store/store';
 import Product from '../pages/productDetails';
 import MyBag from '../pages/myBag';
 import Checkout from '../pages/checkout';
+import Search from '../pages/searchResult';
+import Grouping from '../pages/grouping';
 
-const Mainroute = () => {
+const Mainroute = () =>
+{
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -23,6 +26,9 @@ const Mainroute = () => {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/product/:product" component={Product} />
+          <Route path="/search/:search" component={Search} />
+          <Route path="/department/:departmentID" component={Grouping} />
+          <Route path="/category/:categoryID" component={Grouping} />
           <Route path="/mybag" component={MyBag} />
           <Route path="/checkout" component={Checkout} />
           {/* <Route path='/order' component={Order} /> */}

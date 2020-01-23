@@ -20,7 +20,11 @@ const initialState = {
   detailsMyBag: [],
   listAddress: [],
   selectedAddress: [],
-  addressName: ''
+  addressName: '',
+  paymentMethod: '',
+  orderDetails: {},
+  paymentDetails: {},
+  radioOption: ''
 };
 
 export const store = createStore(initialState);
@@ -42,7 +46,7 @@ export const actions = store => ({
     console.warn('loginData', loginData);
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/login',
+      url: 'https://soso-store.site/user/login',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -98,7 +102,7 @@ export const actions = store => ({
     console.warn('cek mydata', mydata);
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/register',
+      url: 'https://soso-store.site/user/register',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -120,7 +124,7 @@ export const actions = store => ({
   getUserProfile: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'http://localhost:2604/user/me',
+      url: 'https://soso-store.site/user/me',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -149,7 +153,7 @@ export const actions = store => ({
   getPopularProduct: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'http://localhost:2604/user/product/popular'
+      url: 'https://soso-store.site/user/product/popular'
     };
 
     const self = store;
@@ -172,7 +176,7 @@ export const actions = store => ({
   getAllProduct: async (state, event) => {
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/product'
+      url: 'https://soso-store.site/user/product'
     };
 
     const self = store;
@@ -200,7 +204,7 @@ export const actions = store => ({
     console.log('mydata product detail', mydata);
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/product',
+      url: 'https://soso-store.site/user/product',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -234,7 +238,7 @@ export const actions = store => ({
     };
     const req = {
       method: 'get',
-      url: 'http://localhost:2604/user/product',
+      url: 'https://soso-store.site/user/product',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -270,7 +274,7 @@ export const actions = store => ({
     console.log('mydata postProduct', mydata);
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/mybag',
+      url: 'https://soso-store.site/user/mybag',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -296,7 +300,7 @@ export const actions = store => ({
   getMyBag: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'http://localhost:2604/user/mybag',
+      url: 'https://soso-store.site/user/mybag',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -326,7 +330,7 @@ export const actions = store => ({
     };
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/mybag',
+      url: 'https://soso-store.site/user/mybag',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -356,7 +360,7 @@ export const actions = store => ({
     }
     const req = {
       method: 'post',
-      url: 'http://localhost:2604/user/address',
+      url: 'https://soso-store.site/user/address',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -378,6 +382,67 @@ export const actions = store => ({
           isLoading: false
         });
         console.log('error getShipAddress', error);
+      });
+  },
+  postOrder: async (state, addressName) => {
+    const myData = {
+      name: addressName
+    }
+    const req = {
+      method: 'post',
+      url: 'https://soso-store.site/user/order',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      data: myData
+    };
+    console.log('request postOrder', req);
+    const self = store;
+    const res = await axios(req)
+      .then(response => {
+        self.setState({
+          orderDetails: response.data,
+          isLoading: false
+        });
+        console.log('output axios postOrder', response.data);
+        return response;
+      })
+      .catch(error => {
+        self.setState({
+          isLoading: false
+        });
+        console.log('error postOrder', error);
+      });
+  },
+  postPayment: async (state, orderID, paymentMethod) => {
+    const myData = {
+      payment_oid: orderID,
+      payment_type: paymentMethod
+    }
+    const req = {
+      method: 'post',
+      url: 'https://soso-store.site/user/payment',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      data: myData
+    };
+    console.log('request postPayment', req);
+    const self = store;
+    const res = await axios(req)
+      .then(response => {
+        self.setState({
+          paymentDetails: response.data,
+          isLoading: false
+        });
+        console.log('output axios postPayment', response.data);
+        return response;
+      })
+      .catch(error => {
+        self.setState({
+          isLoading: false
+        });
+        console.log('error postPayment', error);
       });
   },
   // end here
