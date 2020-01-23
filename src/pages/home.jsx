@@ -9,15 +9,18 @@ import { connect } from 'unistore/react';
 import { actions, store } from '../store/store';
 import '../style/bootstrap.min.css';
 import '../style/home.css';
+import CarouselProduct from '../components/carouselProduct';
 
 const urlHeadLine =
   'https://api.edamam.com/search?to=21&app_id=7173ea48&app_key=609f58237cd3b846b334f7b7e3f681b2&q=';
 
-class Home extends React.Component {
+class Home extends React.Component
+{
   state = {
     isSearch: false
   };
-  handleSearch = async () => {
+  handleSearch = async () =>
+  {
     await this.props.setChange('isLoading', true);
     const keyword = await this.props.search;
     console.log(keyword);
@@ -37,7 +40,8 @@ class Home extends React.Component {
     console.log(this.props.listRecipe);
   };
 
-  handleTestApi = async () => {
+  handleTestApi = async () =>
+  {
     await store.setState({ selectedProduct: 2 });
     await this.props.getPopularProduct();
     await this.props.getSpesificProduct();
@@ -50,28 +54,32 @@ class Home extends React.Component {
     console.log('myBagData', this.props.myBagData);
   };
 
-  componentDidMount = async () => {
+  componentDidMount = async () =>
+  {
     // this.props.getPopularProduct();
     await this.props.getAllProduct();
     await this.props.getPopularProduct();
     console.log('all product did mount', this.props.listAllProduct);
   };
 
-  render() {
+  render()
+  {
     console.log('all product render', this.props.listAllProduct);
-    const allProduct = this.props.listAllProduct.map((item, key) => {
+    const allProduct = this.props.listAllProduct.map((item, key) =>
+    {
       console.log(item);
       return (
-        // <div></div>
-        <CardProduct
-          image_path={item.Details.image_path}
-          name={item.Details.name}
-          sub_name={item.Details.sub_name}
-          discount={item.Details.discount}
-          price={item.Details.price}
-          sell_price={item.Details.sell_price}
-          pathname={item.Details.name}
-        />
+        <div className="col-md-3 col-sm-6 col-xs-12 mt-1 px-0 border-light border rounded">
+          <CardProduct
+            image_path={item.Details.image_path}
+            name={item.Details.name}
+            sub_name={item.Details.sub_name}
+            discount={item.Details.discount}
+            price={item.Details.price}
+            sell_price={item.Details.sell_price}
+            pathname={item.Details.name}
+          />
+        </div>
       );
     });
 
@@ -80,12 +88,23 @@ class Home extends React.Component {
         <Header />
         <div className="container-fluid mx-0 px-0">
           <BannerCarousel />
-          <div className="row justify-content-center bg-light pt-2 p-5">
-            <h3 className="label-product pt-4">
-              <span className="heading1 bg-light px-5">Products</span>
+          <div className="row my-2">
+            {/* POPULAR PRODUCT */}
+            <h3 className="label-product my-2 pt-4">
+              <span className="heading1 bg-light px-5">Popular Products</span>
               {/* <button onClick={this.handleTestApi}>test api</button> */}
             </h3>
-            <div className="row d-flex flex-row px-5">{allProduct}</div>
+            <CarouselProduct
+              listInputCarousel={this.props.listAllProduct} />
+          </div>
+          <div className="row justify-content-center bg-white pt-2 p-5">
+            <h3 className="label-product pt-4">
+              <span className="heading1 bg-white px-5">Products</span>
+              {/* <button onClick={this.handleTestApi}>test api</button> */}
+            </h3>
+            <div className="row d-flex flex-row px-5">
+              {allProduct}
+            </div>
             <div className="list-product"></div>
             <div className="list-product"></div>
           </div>
@@ -97,9 +116,10 @@ class Home extends React.Component {
               <i className="material-icons">cached</i>
             </div>
           ) : (
-            <div className="row search-result"></div>
-          )}
+              <div className="row search-result"></div>
+            )}
         </div>
+
         <Footer />
       </React.Fragment>
     );

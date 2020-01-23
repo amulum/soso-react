@@ -5,36 +5,43 @@ import logo from '../images/logo192.png';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import { actions, store } from '../store/store';
+import Swal from 'sweetalert2'
 
-class Header extends React.Component {
-  handleLogout = () => {
+class Header extends React.Component
+{
+  handleLogout = () =>
+  {
     this.props.handleLogoutState();
     this.props.history.push('/');
     alert('Thanks for visiting our site, See you next time !');
   };
 
-  handleCategory = async category => {
+  handleCategory = async category =>
+  {
     await this.props.setChange('isLoading', true);
     await this.props.setChange({ selectedProduct: category });
     console.log('filter category', this.props.selectedProduct);
     await this.props.history.replace({
-      pathname: `/category/${this.props.selectedProduct}`
+      pathname: `/category/${ this.props.selectedProduct }`
     });
   };
 
-  handleSearch = async () => {
+  handleSearch = async () =>
+  {
     await this.props.setChange('isLoading', true);
     console.log('search header', this.props.selectedProduct);
     await this.props.history.replace({
-      pathname: `/search/${this.props.selectedProduct}`
+      pathname: `/search/${ this.props.selectedProduct }`
     });
   };
 
-  handleGetBag = async () => {
+  handleGetBag = async () =>
+  {
     this.props.getMyBag();
   };
 
-  render() {
+  render()
+  {
     return (
       <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-sticky">
         <Link className="navbar-brand ml-5" to="/">
@@ -61,12 +68,12 @@ class Header extends React.Component {
               </Link>
             </li>
             <li class="nav-item">
-              <Link to="/department/" className="nav-link heading2">
+              <Link onClick={this.handleDepartment} className="nav-link heading2">
                 Department
               </Link>
             </li>
             <li class="nav-item">
-              <Link to="/category/1" className="nav-link heading2">
+              <Link onClick={this.handleCategory} className="nav-link heading2">
                 Category
               </Link>
             </li>
@@ -92,7 +99,9 @@ class Header extends React.Component {
             {localStorage.getItem('isLogin') ? (
               <li className="nav-item">
                 <Link className="nav-link heading2" to="/mybag">
-                  MyBag
+                  <span>
+                    <i class="fa fas fa-shopping-bag fa-2x"></i>
+                  </span>
                 </Link>
               </li>
             ) : null}
@@ -103,12 +112,12 @@ class Header extends React.Component {
                 </Link>
               </li>
             ) : (
-              <li className="nav-item">
-                <Link className="nav-link heading2" to="/login">
-                  Login
+                <li className="nav-item">
+                  <Link className="nav-link heading2" to="/login">
+                    Login
                 </Link>
-              </li>
-            )}
+                </li>
+              )}
             {localStorage.getItem('isRegister') ? (
               <li className="nav-item mr-0">
                 <Link className="nav-link heading2" to="/profile">
@@ -116,12 +125,12 @@ class Header extends React.Component {
                 </Link>
               </li>
             ) : (
-              <li className="nav-item mr-0">
-                <Link className="nav-link heading2" to="/register">
-                  Register
+                <li className="nav-item mr-0">
+                  <Link className="nav-link heading2" to="/register">
+                    Register
                 </Link>
-              </li>
-            )}
+                </li>
+              )}
           </ul>
         </div>
       </nav>

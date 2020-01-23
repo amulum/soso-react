@@ -6,12 +6,14 @@ import { connect } from 'unistore/react';
 import { actions, store } from '../store/store';
 import '../style/myBag.css';
 
-class MyBag extends React.Component {
+class MyBag extends React.Component
+{
   state = {
     details: []
   };
 
-  componentDidMount = async () => {
+  componentDidMount = async () =>
+  {
     await this.props.getMyBag();
     await this.setState({ details: this.props.dataMyBag.details });
     console.log('bagdata mybag render', this.props.dataMyBag.details);
@@ -19,25 +21,31 @@ class MyBag extends React.Component {
     console.log('this state', this.state.details);
   };
 
-  postNew = async (id, calcMode) => {
+  postNew = async (id, calcMode) =>
+  {
     await this.props.postMyBag(id, calcMode);
     console.log('this.props.dataMyBag.details;', this.props.dataMyBag.details);
-    if (typeof this.props.dataMyBag.details !== 'undefined') {
+    if (typeof this.props.dataMyBag.details !== 'undefined')
+    {
       this.setState({ details: this.props.dataMyBag.details });
     }
   };
-  handleContShopping = () => {
+  handleContShopping = () =>
+  {
     this.props.history.push('/');
   };
 
-  handleCheckout = async () => {
+  handleCheckout = async () =>
+  {
     // go to page checkout jadi review order disana
     // pilih addressnya
     // nampilin radio button pembayarannya mau method apa
     await this.props.history.push('/checkout');
   };
-  render() {
-    if (this.props.dataMyBag.status === 'Bag was there but no details') {
+  render()
+  {
+    if (this.props.dataMyBag.status === 'Bag was there but no details')
+    {
       alert('MyBag Empty, Get some product first :(');
       this.props.history.push('/');
     }
@@ -46,7 +54,8 @@ class MyBag extends React.Component {
 
     // looping component my bag yg akan ditampilkan
     // awal nyantumin amount aja trus next bisa + - amount
-    const allBag = this.state.details.map((item, key) => {
+    const allBag = this.state.details.map((item, key) =>
+    {
       console.log('item bag', item);
       return (
         // <div></div>
@@ -135,28 +144,30 @@ class MyBag extends React.Component {
                       </h3>
                     </td>
                   </tr>
-                  <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>
-                      <button
-                        type="button"
-                        class="btn btn-outline-dark"
-                        onClick={this.handleContShopping}
-                      >
-                        <span class="glyphicon glyphicon-shopping-cart"></span>
-                        Continue Shopping
-                      </button>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-dark" onClick={this.handleCheckout}>
-                        Checkout <span class="glyphicon glyphicon-play"></span>
-                      </button>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+          <div className="row d-flex justify-content-center mb-5">
+            <div className="col-md-10 col-sm-12">
+              <div className="row d-flex justify-content-between">
+                <div className="col-md-4 col-sm-6">
+                  <button
+                    type="button"
+                    class="btn btn-outline-dark"
+                    onClick={this.handleContShopping}
+                    style={{ width: "100%" }}
+                  >
+                    Continue Shopping
+                      </button>
+
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <button style={{ width: "100%" }} type="button" class="btn btn-dark" onClick={this.handleCheckout}>
+                    Checkout
+              </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
