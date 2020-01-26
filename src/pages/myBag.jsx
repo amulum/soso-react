@@ -5,6 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import { actions, store } from '../store/store';
 import '../style/myBag.css';
+import Swal from 'sweetalert2';
 
 class MyBag extends React.Component
 {
@@ -27,7 +28,7 @@ class MyBag extends React.Component
     console.log('this.props.dataMyBag.details;', this.props.dataMyBag.details);
     if (typeof this.props.dataMyBag.details !== 'undefined')
     {
-      this.setState({ details: this.props.dataMyBag.details });
+      await this.setState({ details: this.props.dataMyBag.details });
     }
   };
   handleContShopping = () =>
@@ -37,23 +38,21 @@ class MyBag extends React.Component
 
   handleCheckout = async () =>
   {
-    // go to page checkout jadi review order disana
-    // pilih addressnya
-    // nampilin radio button pembayarannya mau method apa
     await this.props.history.push('/checkout');
   };
   render()
   {
     if (this.props.dataMyBag.status === 'Bag was there but no details')
     {
-      alert('MyBag Empty, Get some product first :(');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Empty Bag',
+        text: 'MyBag Empty, Get some product first :('
+      })
       this.props.history.push('/');
     }
-    // console.log('bagdata mybag render', this.props.dataMyBag.details);
     console.log('this props', this.props);
 
-    // looping component my bag yg akan ditampilkan
-    // awal nyantumin amount aja trus next bisa + - amount
     const allBag = this.state.details.map((item, key) =>
     {
       console.log('item bag', item);
@@ -154,7 +153,7 @@ class MyBag extends React.Component
                 <div className="col-md-4 col-sm-6">
                   <button
                     type="button"
-                    class="btn btn-outline-dark"
+                    class="btn btn-dark"
                     onClick={this.handleContShopping}
                     style={{ width: "100%" }}
                   >
@@ -163,7 +162,7 @@ class MyBag extends React.Component
 
                 </div>
                 <div className="col-md-4 col-sm-6">
-                  <button style={{ width: "100%" }} type="button" class="btn btn-dark" onClick={this.handleCheckout}>
+                  <button style={{ width: "100%" }} type="button" class="btn btn-outline-dark" onClick={this.handleCheckout}>
                     Checkout
               </button>
                 </div>

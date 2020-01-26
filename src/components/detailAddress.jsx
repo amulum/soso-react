@@ -1,9 +1,4 @@
-import React, { Component } from 'react';
-import Header from '../components/header';
-import CardBag from '../components/cardBag';
-import { withRouter, Link } from 'react-router-dom';
-import { connect } from 'unistore/react';
-import { actions, store } from '../store/store';
+import React from 'react';
 
 const DetailAddress = (props) =>
 {
@@ -14,7 +9,7 @@ const DetailAddress = (props) =>
   {
     return (
       <div className="row">
-        <div className="col-sm-12 col-md-7">
+        <div className="col-7 mx-2">
           <table class="table">
             <thead>
               <tr>
@@ -23,7 +18,7 @@ const DetailAddress = (props) =>
             </thead>
             <tbody>
               <tr>
-                <td>{userProfile.firstName} {userProfile.lastName}</td>
+                <td>{userProfile.first_name} {userProfile.last_name}</td>
               </tr>
               <tr>
                 <td>{selectedAddress.address}</td>
@@ -40,8 +35,8 @@ const DetailAddress = (props) =>
             </tbody>
           </table>
         </div>
-        <div className="col-sm-12 col-md-4">
-          <div className="table">
+        <div className="col-4 mx-2">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">CONTACT INFO: </th>
@@ -61,7 +56,7 @@ const DetailAddress = (props) =>
                 <td>{selectedAddress.phone_number}</td>
               </tr>
             </tbody>
-          </div>
+          </table>
         </div>
       </div>
     )

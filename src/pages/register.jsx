@@ -6,16 +6,20 @@ import { actions, store } from '../store/store';
 import logo from '../images/logo192.png';
 import '../style/register.css';
 
-class Register extends Component {
-  handleRegister = async () => {
+class Register extends Component
+{
+  handleRegister = async () =>
+  {
     await this.props.handleStateRegister();
-    if (localStorage.getItem('isRegister') === 'true') {
+    if (localStorage.getItem('isRegister') === 'true')
+    {
       await this.props.handleStateLogin();
       await this.props.history.replace('/');
       console.warn('cektoken', localStorage.getItem('token'));
     }
   };
-  render() {
+  render()
+  {
     return (
       <React.Fragment>
         <Header {...this.props} />
@@ -32,9 +36,10 @@ class Register extends Component {
                     name="first_name"
                     type="text"
                     id="defaultRegisterFormFirstName"
-                    class="form-control border-dark"
+                    class="form-control border-dark form-control"
                     placeholder="First Name"
                     onChange={e => this.props.setInput(e)}
+                    required
                   />
                 </div>
                 <div class="col">
@@ -42,9 +47,10 @@ class Register extends Component {
                     name="last_name"
                     type="text"
                     id="defaultRegisterFormLastName"
-                    class="form-control border-dark"
+                    class="form-control border-dark form-control"
                     placeholder="Last name"
                     onChange={e => this.props.setInput(e)}
+                    required
                   />
                 </div>
               </div>
@@ -53,27 +59,30 @@ class Register extends Component {
                 name="email"
                 type="email"
                 id="defaultRegisterFormEmail"
-                class="form-control mb-4 border-dark"
+                class="form-control mb-4 border-dark form-control"
                 placeholder="E-mail"
                 onChange={e => this.props.setInput(e)}
+                required
               />
               <input
                 name="username"
                 type="text"
                 id="defaultRegisterFormEmail"
-                class="form-control mb-4 border-dark"
+                class="form-control mb-4 border-dark form-control"
                 placeholder="username"
                 onChange={e => this.props.setInput(e)}
+                required
               />
 
               <input
                 name="password"
                 type="password"
                 id="defaultRegisterFormPassword"
-                class="form-control border-top border-dark"
+                class="form-control border-top border-dark form-control"
                 placeholder="Password"
                 aria-describedby="defaultRegisterFormPasswordHelpBlock"
                 onChange={e => this.props.setInput(e)}
+                required
               />
               <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
                 At least 8 characters and 1 digit
@@ -93,7 +102,7 @@ class Register extends Component {
               <button
                 class="btn btn-dark my-4 btn-block"
                 type="submit"
-                onClick={() => this.handleRegister()}
+                onClick={() => this.modalRegister()}
               >
                 Sign in
               </button>
@@ -101,13 +110,13 @@ class Register extends Component {
               <p>or sign up with:</p>
 
               <a href="#" class="mx-2" role="button">
-                <i class="fa fa-fw fa-facebook-square"></i>
+                <i class="fa fa-facebook-square"></i>
               </a>
               <a href="#" class="mx-2" role="button">
-                <i class="fab fa-twitter-square"></i>
+                <i class="fa fab fa-twitter-square"></i>
               </a>
               <a href="#" class="mx-2" role="button">
-                <i class="fas fa-envelope"></i>
+                <i class="fa fas fa-envelope"></i>
               </a>
 
               <hr />

@@ -1,7 +1,9 @@
 import createStore from 'unistore';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const initialState = {
+  // CUSTOMER SIDE STATE
   listUserProfile: [],
   fullname: '',
   username: '',
@@ -24,13 +26,40 @@ const initialState = {
   paymentMethod: '',
   orderDetails: {},
   paymentDetails: {},
-  radioOption: ''
+  radioOption: '',
+  selectedCategory: '',
+  createPaymentStatus: '',
+  createOrderStatus: '',
+  // INTERNAL SIDE STATE
+  internalUsername: '',
+  internalPassword: '',
+  internalIsLogin: '',
+  internalToken: '',
+  sellerUsername: '',
+  sellerPassword: '',
+  sellerEmail: '',
+  sellerBrandName: '',
+  adminUsername: '',
+  adminPassword: '',
+  listAllAdmin: [],
+  listAllSeller: [],
+  listAllCustomer: [],
+  deleteAdminStatus: '',
+  deleteSellerStatus: '',
+  deleteCustomerStatus: '',
+  newAdminData: []
 };
+
+// choose api path
+const apiPath = 'http://0.0.0.0:5000'
+// local: 'http://0.0.0.0:5000',
+// deploy : 'https://soso-store.site'
 
 export const store = createStore(initialState);
 
 export const actions = store => ({
   // start here
+  // CUSTOMER SIDE FUNCTION
   handleStateLogin: async (state, event) => {
     const {
       username
@@ -46,7 +75,7 @@ export const actions = store => ({
     console.warn('loginData', loginData);
     const req = {
       method: 'post',
-      url: 'https://soso-store.site/user/login',
+      url: `${apiPath}/user/login`,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -63,7 +92,15 @@ export const actions = store => ({
         localStorage.setItem('username', state.username);
       })
       .catch(error => {
-        console.log(error);
+        console.log('error response', error.response);
+        console.log('status', error.response.status);
+        if (error.response.status === 403) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid username or password'
+          })
+        }
       });
   },
 
@@ -102,7 +139,7 @@ export const actions = store => ({
     console.warn('cek mydata', mydata);
     const req = {
       method: 'post',
-      url: 'https://soso-store.site/user/register',
+      url: `${apiPath}/user/register`,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -124,7 +161,7 @@ export const actions = store => ({
   getUserProfile: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'https://soso-store.site/user/me',
+      url: `${apiPath}/user/me`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -153,7 +190,7 @@ export const actions = store => ({
   getPopularProduct: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'https://soso-store.site/user/product/popular'
+      url: `${apiPath}/user/product/popular`
     };
 
     const self = store;
@@ -176,12 +213,13 @@ export const actions = store => ({
   getAllProduct: async (state, event) => {
     const req = {
       method: 'post',
-      url: 'https://soso-store.site/user/product'
+      url: `${apiPath}/user/product`
     };
-
+    console.log('cek axios', req)
     const self = store;
     await axios(req)
       .then(response => {
+        console.log('response get product', response)
         self.setState({
           listAllProduct: response.data.result,
           isLoading: false
@@ -204,7 +242,7 @@ export const actions = store => ({
     console.log('mydata product detail', mydata);
     const req = {
       method: 'post',
-      url: 'https://soso-store.site/user/product',
+      url: `${apiPath}/user/product`,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -238,7 +276,7 @@ export const actions = store => ({
     };
     const req = {
       method: 'get',
-      url: 'https://soso-store.site/user/product',
+      url: `${apiPath}/user/product`,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -274,7 +312,7 @@ export const actions = store => ({
     console.log('mydata postProduct', mydata);
     const req = {
       method: 'post',
-      url: 'https://soso-store.site/user/mybag',
+      url: `${apiPath}/user/mybag`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -300,7 +338,7 @@ export const actions = store => ({
   getMyBag: async (state, event) => {
     const req = {
       method: 'get',
-      url: 'https://soso-store.site/user/mybag',
+      url: `${apiPath}/user/mybag`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -330,7 +368,7 @@ export const actions = store => ({
     };
     const req = {
       method: 'post',
-      url: 'https://soso-store.site/user/mybag',
+      url: `${apiPath}/user/mybag`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -360,7 +398,7 @@ export const actions = store => ({
     }
     const req = {
       method: 'post',
-      url: 'https://soso-store.site/user/address',
+      url: `${apiPath}/user/address`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -390,7 +428,7 @@ export const actions = store => ({
     }
     const req = {
       method: 'post',
-      url: 'https://soso-store.site/user/order',
+      url: `${apiPath}/user/order`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -402,6 +440,7 @@ export const actions = store => ({
       .then(response => {
         self.setState({
           orderDetails: response.data,
+          createOrderStatus: response.status,
           isLoading: false
         });
         console.log('output axios postOrder', response.data);
@@ -421,7 +460,7 @@ export const actions = store => ({
     }
     const req = {
       method: 'post',
-      url: 'https://soso-store.site/user/payment',
+      url: `${apiPath}/user/payment`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
@@ -433,6 +472,7 @@ export const actions = store => ({
       .then(response => {
         self.setState({
           paymentDetails: response.data,
+          createPaymentStatus: response.status,
           isLoading: false
         });
         console.log('output axios postPayment', response.data);
@@ -443,6 +483,324 @@ export const actions = store => ({
           isLoading: false
         });
         console.log('error postPayment', error);
+      });
+  },
+  handleSuccessOrder: (state) => {
+    console.log(state.createPaymentStatus)
+    console.log(state.createOrderStatus)
+    if (state.createPaymentStatus === state.createOrderStatus) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Create Order Success',
+        text: 'Create order success, Please confirm your payment within next 2 hours'
+      })
+    }
+  },
+
+  // INTERNAL SIDE FUNCTION
+  handleInternalState: async (state, internalIdentity) => {
+    const {
+      internalUsername,
+      internalPassword
+    } = state;
+    const username = internalUsername
+    const password = internalPassword
+    const loginData = {
+      username,
+      password
+    };
+
+    console.log('loginData', loginData);
+    const req = {
+      method: 'post',
+      url: `${apiPath}/${internalIdentity}/login`,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: loginData
+    };
+    console.log('request', req);
+    await axios(req)
+      .then(response => {
+
+        console.log('masuk axios', response.data);
+        localStorage.setItem('internalIsLogin', true);
+        localStorage.setItem('internalIsRegister', true);
+        localStorage.setItem('internalToken', response.data.token);
+        localStorage.setItem('internalUsername', internalUsername);
+        localStorage.setItem('internalIdentity', internalIdentity);
+      })
+      .catch(error => {
+        console.log('error response', error.response);
+        console.log('status', error.response.status);
+        if (error.response.status === 403) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid username or password'
+          })
+        }
+      });
+  },
+
+  handleInternalLogout: (state) => {
+    localStorage.removeItem('internalIsLogin');
+    localStorage.removeItem('internalIsRegister');
+    localStorage.removeItem('internalToken');
+    localStorage.removeItem('internalUsername');
+    localStorage.removeItem('internalIdentity');
+    Swal.fire({
+      icon: 'success',
+      title: 'Logout Success',
+      text: 'See you next time !'
+    })
+  },
+
+  handleOpenNav: () => {
+    document.getElementById("mySidenav").style.width = "17%";
+    document.getElementById("main").style.marginLeft = "17%";
+    document.body.style.backgroundColor = "rgba(32,30,30,0,4)";
+  },
+
+  handleCloseNav: () => {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+    document.body.style.backgroundColor = "white";
+  },
+
+  postRegisterSeller: async (state) => {
+    const username = state.sellerUsername
+    const password = state.sellerPassword
+    const email = state.sellerEmail
+    const brand_name = state.sellerBrandName
+    const registerData = {
+      username,
+      password,
+      email,
+      brand_name
+    };
+
+    console.log('registerData', registerData);
+    const req = {
+      method: 'post',
+      url: `${apiPath}/seller/register`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('internalToken')}`,
+        'Content-Type': 'application/json'
+      },
+      data: registerData
+    };
+    console.log('request', req);
+    await axios(req)
+      .then(response => {
+
+        console.log('masuk axios registerSeller', response.data);
+        store.setState({
+          newSellerData: response.data.Detail
+        });
+      })
+      .catch(error => {
+        console.log('error response', error.response);
+        console.log('status', error.response.status);
+        if (error.response.status === 400) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid username or password'
+          })
+        }
+      });
+  },
+
+  deleteSeller: async (state, idSeller) => {
+    const deleteData = {
+      id: idSeller
+    };
+
+    console.log('deleteData', deleteData);
+    const req = {
+      method: 'delete',
+      url: `${apiPath}/admin/seller`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('internalToken')}`,
+        'Content-Type': 'application/json'
+      },
+      data: deleteData
+    };
+    console.log('request', req);
+    await axios(req)
+      .then(response => {
+
+        console.log('masuk axios deleteSeller', response.data);
+        store.setState({
+          deleteSellerStatus: response.data.status
+        });
+      })
+      .catch(error => {
+        console.log('error response', error.response);
+        console.log('status', error.response.status);
+      });
+  },
+
+  getAllSeller: async (state) => {
+    const req = {
+      method: 'get',
+      url: `${apiPath}/admin/seller`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('internalToken')}`,
+        'Content-Type': 'application/json'
+      },
+    };
+    console.log('request', req);
+    await axios(req)
+      .then(response => {
+
+        console.log('masuk axios get all Seller', response.data);
+        store.setState({
+          listAllSeller: response.data
+        });
+      })
+      .catch(error => {
+        console.log('error response', error.response);
+        console.log('status', error.response.status);
+      });
+  },
+
+  postRegisterAdmin: async (state) => {
+    const username = state.adminUsername
+    const password = state.adminPassword
+    const registerData = {
+      username,
+      password
+    }
+    const req = {
+      method: 'post',
+      url: `${apiPath}/admin/register`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('internalToken')}`,
+        'Content-Type': 'application/json'
+      },
+      data: registerData
+    };
+    console.log('request', req);
+    await axios(req)
+      .then(response => {
+
+        console.log('masuk axios deleteSeller', response.data);
+        store.setState({
+          newAdminData: response.data,
+        });
+      })
+      .catch(error => {
+        console.log('error response', error.response);
+        console.log('status', error.response.status);
+      });
+  },
+
+  getAllAdmin: async (state) => {
+    const req = {
+      method: 'get',
+      url: `${apiPath}/admin`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('internalToken')}`,
+        'Content-Type': 'application/json'
+      },
+    };
+    console.log('request', req);
+    const self = store;
+    await axios(req)
+      .then(response => {
+
+        console.log('masuk axios getAdmin', response.data);
+        self.setState({
+          listAllAdmin: response.data
+        });
+      })
+      .catch(error => {
+        console.log('error response', error.response);
+        console.log('status', error.response.status);
+      });
+  },
+
+  deleteAdmin: async (state, usernameAdmin) => {
+    const deleteData = {
+      username: usernameAdmin
+    }
+    const req = {
+      method: 'delete',
+      url: `${apiPath}/admin`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('internalToken')}`,
+        'Content-Type': 'application/json'
+      },
+      data: deleteData
+    };
+    console.log('request', req);
+    await axios(req)
+      .then(response => {
+
+        console.log('masuk axios deleteAdmin', response.data);
+        store.setState({
+          deleteAdminStatus: response.data.status
+        });
+      })
+      .catch(error => {
+        console.log('error response', error.response);
+        console.log('status', error.response.status);
+      });
+  },
+
+  getAllCustomer: async (state) => {
+    const req = {
+      method: 'get',
+      url: `${apiPath}/admin/user`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('internalToken')}`,
+        'Content-Type': 'application/json'
+      },
+    };
+    console.log('request', req);
+    const self = store;
+    await axios(req)
+      .then(response => {
+
+        console.log('masuk axios getAdmin', response.data);
+        self.setState({
+          listAllCustomer: response.data
+        });
+      })
+      .catch(error => {
+        console.log('error response', error.response);
+        console.log('status', error.response.status);
+      });
+  },
+  deleteCustomer: async (state, idCustomer) => {
+    const deleteData = {
+      id: idCustomer
+    };
+
+    console.log('deleteData', deleteData);
+    const req = {
+      method: 'delete',
+      url: `${apiPath}/admin/user`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('internalToken')}`,
+        'Content-Type': 'application/json'
+      },
+      data: deleteData
+    };
+    console.log('request', req);
+    await axios(req)
+      .then(response => {
+
+        console.log('masuk axios deleteCustomer', response.data);
+        store.setState({
+          deleteCustomerStatus: response.data.status
+        });
+      })
+      .catch(error => {
+        console.log('error response', error.response);
+        console.log('status', error.response.status);
       });
   },
   // end here

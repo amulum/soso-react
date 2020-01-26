@@ -1,0 +1,71 @@
+/* background:linear-gradient(90deg, #201e1e 0%,#736868 21%,#c8bbc0 76%,#fff0f9 95% ); */
+/* The side navigation menu */
+.sidenav {
+  height: 100%;
+  /* 100% Full-height */
+  width: 0;
+  /* 0 width - change this with JavaScript */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Stay on top */
+  top: 0;
+  /* Stay at the top */
+  left: 0;
+  background-color: #201e1e;
+  /* Black*/
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  padding-top: 60px;
+  /* Place content 60px from the top */
+  transition: 0.5s;
+  /* 0.5 second transition effect to slide in the sidenav */
+  -webkit-box-shadow: 1px 0px 1px 2px rgba(255, 240, 249, 1);
+  -moz-box-shadow: 1px 0px 1px 2px rgba(255, 240, 249, 1);
+  box-shadow: 1px 0px 1px 2px rgba(255, 240, 249, 1);
+}
+
+/* The navigation menu links */
+.sidenav a,
+.sidenav ul a {
+  text-decoration: none;
+  font-size: 1.5em;
+  color: #fff0f9;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav ul ul a {
+  font-size: 1.3em;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #c8bbc0;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 2em;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 1em;
+  }
+}

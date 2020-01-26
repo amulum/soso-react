@@ -14,6 +14,8 @@ import MyBag from '../pages/myBag';
 import Checkout from '../pages/checkout';
 import Search from '../pages/searchResult';
 import Grouping from '../pages/grouping';
+import LoginInternal from '../pages/loginInternal'
+import InternalHome from '../pages/internalHome';
 
 const Mainroute = () =>
 {
@@ -22,6 +24,9 @@ const Mainroute = () =>
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/internal/login" component={LoginInternal} />
+          <Route path="/admin" component={InternalHome} />
+          <Route path="/seller" component={InternalHome} />
           <Route path="/me" component={Profile} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />

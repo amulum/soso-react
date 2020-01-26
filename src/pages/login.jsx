@@ -6,16 +6,22 @@ import { actions, store } from '../store/store';
 import logo from '../images/logo192.png';
 import '../style/login.css';
 
-class Login extends Component {
-  handleLogin = async () => {
-    await this.props.handleStateLogin();
-    console.log('localstorage islogin', localStorage.getItem('isLogin'));
-    if (localStorage.getItem('isLogin') === 'true') {
-      await this.props.history.replace('/');
-      console.warn('cek token login', this.props.token);
+class Login extends Component
+{
+  handleLogin = async () =>
+  {
+    if (this.props.username !== '' && this.props.password !== '')
+    {
+      await this.props.handleStateLogin();
+      console.log('localstorage islogin', localStorage.getItem('isLogin'));
+      if (localStorage.getItem('isLogin') === 'true')
+      {
+        await this.props.history.replace('/');
+      }
     }
   };
-  render() {
+  render()
+  {
     return (
       <React.Fragment>
         <Header {...this.props} />
@@ -26,18 +32,20 @@ class Login extends Component {
           <div className="form-box">
             <form action="" method="" onSubmit={e => e.preventDefault()}>
               <input
-                className="border-dark my-2"
+                className="border-dark my-2 form-control"
                 name="username"
                 type="text"
                 placeholder="username"
                 onChange={e => this.props.setInput(e)}
+                required
               />
               <input
-                className="border-dark border-top my-2"
+                className="border-dark border-top my-2 form-control"
                 name="password"
                 type="password"
                 placeholder="password"
                 onChange={e => this.props.setInput(e)}
+                required
               />
               <button
                 className="btn btn-info btn-block login my-2"

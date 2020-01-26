@@ -13,16 +13,21 @@ class Header extends React.Component
   {
     this.props.handleLogoutState();
     this.props.history.push('/');
-    alert('Thanks for visiting our site, See you next time !');
+    Swal.fire({
+      icon: 'success',
+      title: 'Logout Success',
+      text: 'Thanks for visiting our site, See you next time !'
+    })
   };
 
   handleCategory = async category =>
   {
     await this.props.setChange('isLoading', true);
-    await this.props.setChange({ selectedProduct: category });
-    console.log('filter category', this.props.selectedProduct);
-    await this.props.history.replace({
-      pathname: `/category/${ this.props.selectedProduct }`
+    await store.set({ selectedCategory: category })
+    console.log('selectedCat', this.props.selectedCategory)
+    console.log('category', category)
+    await this.props.history.push({
+      pathname: `/category/${ category }`
     });
   };
 
@@ -72,9 +77,9 @@ class Header extends React.Component
                 Department
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <Link className="dropdown-item" to="/department/1">Department 1</Link>
-                <Link className="dropdown-item" to="/department/2">Department 2</Link>
-                <Link className="dropdown-item" to="/department/3">Department 3</Link>
+                <a className="dropdown-item" href="/department/1">Makeup</a>
+                <a className="dropdown-item" href="/department/2">Skincare</a>
+                <a className="dropdown-item" href="/department/4">Bath and Body</a>
               </div>
             </li>
             <li class="nav-item dropdown heading2">
@@ -82,9 +87,9 @@ class Header extends React.Component
                 Category
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <Link className="dropdown-item" to="/category/1">Category 1</Link>
-                <Link className="dropdown-item" to="/category/2">Category 2</Link>
-                <Link className="dropdown-item" to="/category/3">Category 3</Link>
+                <a className="dropdown-item" href="/category/1">Category 1</a>
+                <a className="dropdown-item" href="/category/2">Category 2</a>
+                <a className="dropdown-item" href="/category/3">Category 3</a>
               </div>
             </li>
           </ul>
@@ -102,7 +107,7 @@ class Header extends React.Component
               type="submit"
               onClick={() => this.handleSearch()}
             >
-              Search
+              <i class="fa fas fa-search"></i>
             </button>
           </form>
           <ul className="navbar-nav ml-auto mt-lg-0">
@@ -149,6 +154,6 @@ class Header extends React.Component
 }
 
 export default connect(
-  'isLogin,isRegister, image, username, selectedProduct',
+  'isLogin,isRegister, image, username, selectedProduct, selectedCategory',
   actions
 )(withRouter(Header));

@@ -15,6 +15,7 @@ import RadioLoop from '../components/radioLoop';
 class Checkout extends React.Component
 {
   state = {
+    paymentOption: ['OVO', 'DANA', 'Jenius', 'GOPAY'],
     addressDetails: [],
     selectedAddress: [],
     bagDetails: [],
@@ -32,7 +33,7 @@ class Checkout extends React.Component
     await this.setState({ addressDetails: this.props.listAddress });
     await this.setState({ bagDetails: this.props.dataMyBag.details });
     console.log('addressName store dari didmount', this.props.addressName);
-    console.log('selectedAddressLocal store', this.props.selectedAddress);
+    console.log('selectedAddressLocal state', this.state.selectedAddress);
     console.log(this.props.add);
     console.log('this props', this.props.match.params)
   };
@@ -59,19 +60,21 @@ class Checkout extends React.Component
     await this.setState({ addressName: this.props.addressName });
     await this.setState({ paymentMethod: this.props.radioOption });
     await this.props.postOrder(this.state.addressName);
-    await console.log('address local', this.props.orderDetails);
     await this.setState({ orderDetails: this.props.orderDetails });
     // api payment butuh order id
-    await this.props.postPayment(this.state.orderDetails.id, this.state.paymentMethod);
+    await this.props.postPayment(this.state.orderDetails.id, this.state.paymentMethod)
+    // butuh status code dari postOrder dan postPayment
+    await this.props.handleSuccessOrder()
+    await this.props.history.push('/me')
+
   };
 
   render()
   {
     // component mybag lagi beda tampilan dan quantitynya udah fix
-    const paymentOption = ['ovo', 'dana', 'bank transfer'];
-    const loopPayment = paymentOption.map((item, key) =>
+    const loopPayment = this.state.paymentOption.map((item, key) =>
     {
-      return <RadioLoop key={key} optionName={item} onChange={paymentMethod => this.handlePayment(paymentMethod)} />;
+      return <RadioLoop key={key} optionName={item} optionImage={require(`../images/payment-logo-${ key + 1 }.png`)} onChange={paymentMethod => this.handlePayment(paymentMethod)} />;
     });
     // component shipping
     const loopOption = this.state.addressDetails.map((item, key) =>
@@ -84,36 +87,7 @@ class Checkout extends React.Component
     });
     return (
       <React.Fragment>
-        <Header />getUserProfile
-        <h2>JSON Needed Data</h2>
-        <hr />
-        <div>
-          getShipAddress :<p>{JSON.stringify(this.state.addressDetails)}</p>
-        </div>
-        <div>
-          getUserProfile :<p>{JSON.stringify(this.props.listUserProfile)}</p>
-        </div>
-        <div>
-          selectedAddress :<p>{JSON.stringify(this.state.selectedAddress)}</p>
-        </div>
-        <div>
-          bagDetails :<p>{JSON.stringify(this.state.bagDetails)}</p>
-        </div>
-        <div>
-          inputPaymentMethod :<p>{JSON.stringify(this.props.paymentMethod)}</p>
-        </div>
-        <div>
-          checkInputForCheckout :<p>{JSON.stringify(this.state.addressName)}</p>
-          <p>{JSON.stringify(this.state.paymentMethod)}</p>
-        </div>
-        <div>
-          orderDetails :<p>{JSON.stringify(this.props.orderDetails)}</p>
-          check ID :<p>{JSON.stringify(this.state.orderDetails.id)}</p>
-        </div>
-        <div>
-          paymentDetails :<p>{JSON.stringify(this.props.paymentDetails)}</p>
-        </div>
-        <hr />
+        <Header />
         <h2>ACTION CHECK</h2>
         <hr />
         <div className="container-fluid">
@@ -155,20 +129,20 @@ class Checkout extends React.Component
               <form onSubmit={e => e.preventDefault()}>
                 <div class="form-row align-items-center">
                   <div class="col-auto my-1">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect">
-                      Payment Method
+                    <label class="mr-sm-2 font-weight-bold" for="inlineFormCustomSelect">
+                      PAYMENT METHOD
                       </label>
                   </div>
                 </div>
               </form>
               {loopPayment}
-              <button className="btn btn-outline-dark" onClick={() => this.handleCheckout()}>
+            </div>
+            <div className="col-md-10 justify-content-center">
+              <button className="btn btn-outline-dark" onClick={() => this.handleCheckout()} style={{ width: "50%" }}>
                 Confirm and Pay
             </button>
             </div>
           </div>
-
-
           {/* row container fluid */}
         </div>
       </React.Fragment>

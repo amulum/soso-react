@@ -1,23 +1,26 @@
 import React from 'react';
 import Header from '../components/header';
 import BannerCarousel from '../components/bannerCarousel';
-import CardProduct from '../components/cardProduct';
 
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import { actions, store } from '../store/store';
 import '../style/bootstrap.min.css';
 import '../style/home.css';
 import CardDetails from '../components/cardDetails';
 
-class Product extends React.Component {
-  componentDidMount = () => {
+class Product extends React.Component
+{
+  componentDidMount = () =>
+  {
     this.props.getProductDetail();
     console.log('product detail', this.props.selectedProduct);
   };
-  render() {
+  render()
+  {
     console.log('aall product di product jsx', this.props.listSelectProduct);
-    const allProduct = this.props.listSelectProduct.map((item, key) => {
+    const allProduct = this.props.listSelectProduct.map((item, key) =>
+    {
       console.log('item dalem loop', item);
       console.log(item.Details);
       return (
